@@ -5,10 +5,10 @@ export default async function Page({
     searchParams,
   }: {
     searchParams?: {
-      query?: string;
+      word?: string;
     };
   }) {
-    const query = searchParams?.query || '';
+    const word = searchParams?.word || '';
   
     return (
       <div className="w-full">
@@ -18,7 +18,7 @@ export default async function Page({
         <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
           <Search placeholder="Search word.." />
         </div>
-        <Word query={query} />
+        {word ? <Word query={word} /> : <></>}
       </div>
     );
   }
