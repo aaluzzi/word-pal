@@ -1,23 +1,13 @@
-import { fetchWord } from '../lib/data';
+import { Word } from '../lib/data';
 import WordLink from './word-link';
 
-export default async function Word({ query }: { query: string }) {
-	const word = await fetchWord(query);
-
-	if (!word) {
-		return (
-			<div className="mt-6 flow-root">
-				<h1>Word Not Found</h1>
-			</div>
-		);
-	}
-
+export default function Word({ word }: { word: Word }) {
 	return (
 		<div className="mt-6 flex flex-col rounded-lg p-4 bg-gray-50 gap-4">
 			<h1 className="text-4xl font-bold">{word.word}</h1>
 
-			{word.meanings.map(meaning => (
-				<div className="bg-white rounded-lg p-3" key={meaning.partOfSpeech}>
+			{word.meanings.map((meaning, index) => (
+				<div className="bg-white rounded-lg p-3" key={`${meaning.partOfSpeech}${index}`}>
 					<div className="italic">{meaning.partOfSpeech}</div>
 					<div className="pl-10">
 						<ol className="list-decimal">
