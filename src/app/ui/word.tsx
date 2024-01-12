@@ -19,7 +19,7 @@ export default function Word({ word }: { word: Word }) {
 							))}
 						</ol>
 						{meaning.synonyms.length > 0 &&
-							<div className="flex items-center gap-1">
+							<div className="flex flex-wrap items-center gap-1">
 								<span className="text-blue-500">Similar:</span>
 								{meaning.synonyms.map(synonym => <WordLink key={synonym} word={synonym} />)}
 							</div>
