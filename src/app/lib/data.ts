@@ -6,11 +6,11 @@ export type Word = {
 type Meaning = {
     partOfSpeech: string,
     definitions: Array<Definition>,
+    synonyms: Array<string>,
 }
 
 type Definition = {
     definition: string,
-    synonyms: Array<string>,
     example: string,
 }
 

@@ -1,14 +1,14 @@
 'use client';
 
 import {
-  HomeIcon,
+  BookOpenIcon,
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const links = [
-  { name: 'Dictionary', href: '/dictionary', icon: HomeIcon },
+  { name: 'Dictionary', href: '/dictionary', icon: BookOpenIcon },
 ];
 
 export default function NavLinks() {
