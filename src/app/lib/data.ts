@@ -1,3 +1,5 @@
+import { sql } from "@vercel/postgres";
+
 export type Word = {
     word: string,
     meanings: Array<Meaning>,
@@ -25,4 +27,16 @@ export async function fetchWord(query: string): Promise<Word | null> {
         return parsedWord;
     }
     return null;
+}
+
+export async function createUser(userId: string, username: string, globalName: string) {
+    try {
+        await sql`
+            INSERT INTO users (user_id, username, global_name)
+            VALUES (${userId}, ${username}, ${globalName})
+            ON CONFLICT DO NOTHING
+        `;
+    } catch (error) {
+        console.error(error);
+    }
 }
