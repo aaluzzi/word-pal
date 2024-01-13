@@ -1,7 +1,7 @@
 'use client';
 
 import {
-  BookOpenIcon,
+  BookOpenIcon, FolderIcon,
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 
 const links = [
   { name: 'Dictionary', href: '/dictionary', icon: BookOpenIcon },
+  { name: 'Collection', href: '/collection', icon: FolderIcon },
 ];
 
 export default function NavLinks() {
