@@ -1,10 +1,24 @@
+'use client';
+
 import { Word } from '../lib/data';
 import WordLink from './word-link';
+import FavoriteButton from './favorite-button';
+import { submitWord } from '../lib/actions';
+import { useState } from 'react';
 
-export default function Word({ word }: { word: Word }) {
+export default function Word({ word, alreadySaved }: { word: Word , alreadySaved: boolean}) {
+	const [saved, setSaved] = useState(alreadySaved);
+	const submit = async () => {
+		submitWord(word.word);
+		setSaved(true);
+	};
+
 	return (
 		<div className="mt-6 flex flex-col rounded-lg p-4 bg-gray-50 gap-4">
-			<h1 className="text-4xl font-bold">{word.word}</h1>
+			<div className="flex items-center gap-2">
+				<h1 className="text-4xl font-bold">{word.word}</h1>
+				<FavoriteButton submitWord={submit} saved={saved} />
+			</div>
 
 			{word.meanings.map((meaning, index) => (
 				<div className="bg-white rounded-lg p-3" key={`${meaning.partOfSpeech}${index}`}>
@@ -24,7 +38,6 @@ export default function Word({ word }: { word: Word }) {
 								{meaning.synonyms.map(synonym => <WordLink key={synonym} word={synonym} />)}
 							</div>
 						}
-						
 					</div>
 				</div>
 			))}

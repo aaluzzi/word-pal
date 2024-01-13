@@ -13,6 +13,7 @@ export default async function Page({ params }: {params: { word: string}}) {
 	}
 
     return (
-        <Word word={word} />
+		//TODO check alreadySaved
+        <Word word={word} alreadySaved={false} />
     )
 }

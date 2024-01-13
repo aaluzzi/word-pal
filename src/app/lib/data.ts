@@ -1,3 +1,5 @@
+'use server';
+
 import { sql } from "@vercel/postgres";
 
 export type Word = {
@@ -36,6 +38,15 @@ export async function createUser(userId: string, username: string, globalName: s
             VALUES (${userId}, ${username}, ${globalName})
             ON CONFLICT DO NOTHING
         `;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function saveWord(userId: string, word: string) {
+    try {
+        sql`INSERT INTO Words (word_id) VALUES (${word}) ON CONFLICT DO NOTHING`;
+        sql`INSERT INTO UserWords (user_id, word_id) VALUES (${userId}, ${word}) ON CONFLICT DO NOTHING`;
     } catch (error) {
         console.error(error);
     }
