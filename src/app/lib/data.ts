@@ -51,3 +51,15 @@ export async function saveWord(userId: string, word: string) {
         console.error(error);
     }
 }
+
+export async function wordSaved(userId: string, word: string) {
+    try {
+        const count = await sql`
+            SELECT COUNT(*) FROM UserWords
+            WHERE user_id = ${userId} AND word_id = ${word};
+        `;
+        return count.rows[0].count > 0;
+    } catch (error) {
+        console.error(error);
+    }
+}
