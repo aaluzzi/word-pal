@@ -2,7 +2,7 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth";
-import { fetchWords, saveWord, wordSaved } from "./data";
+import { fetchCategories, fetchWords, saveWord, wordSaved } from "./data";
 
 export async function getWords() {
     const session = await getServerSession(authOptions);
@@ -26,4 +26,17 @@ export async function wordIsSaved(word: string) {
        return await wordSaved(session.user.id, word) || false;
     }
     return false;
+}
+
+export async function getCategories() {
+    const session = await getServerSession(authOptions);
+    if (session) {
+        const categories = await fetchCategories(session.user.id);
+        if (categories) {
+            return ['all', ...categories!!.map(category => category.category_name)];
+        } else {
+            return ['all'];
+        }
+    }
+    return [];
 }
