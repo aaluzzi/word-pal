@@ -8,9 +8,7 @@ export async function getWords() {
     const session = await getServerSession(authOptions);
     if (session) {
         const words = await fetchWords(session.user.id);
-        if (words) {
-            return words.map(word => word.word_id);
-        }
+        return words || [];
     }
     return [];
 }

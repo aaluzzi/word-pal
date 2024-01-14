@@ -46,9 +46,10 @@ export async function createUser(userId: string, username: string, globalName: s
 export async function fetchWords(userId: string) {
     try {
         const words = await sql`
-            SELECT word_id
+            SELECT word
             FROM UserWords
-            WHERE UserWords.user_id = ${userId}
+            WHERE user_id = ${userId}
+            AND category_name = 'all'
         `
         return words.rows;
     } catch (error) {
@@ -58,7 +59,7 @@ export async function fetchWords(userId: string) {
 
 export async function saveWord(userId: string, word: string) {
     try {
-        sql`INSERT INTO UserWords (user_id, word_id) VALUES (${userId}, ${word}) ON CONFLICT DO NOTHING`;
+        sql`INSERT INTO UserWords (user_id, word, category_name) VALUES (${userId}, ${word}, 'all') ON CONFLICT DO NOTHING`;
     } catch (error) {
         console.error(error);
     }
@@ -68,7 +69,7 @@ export async function wordSaved(userId: string, word: string) {
     try {
         const count = await sql`
             SELECT COUNT(*) FROM UserWords
-            WHERE user_id = ${userId} AND word_id = ${word};
+            WHERE user_id = ${userId} AND word = ${word};
         `;
         return count.rows[0].count > 0;
     } catch (error) {
