@@ -46,9 +46,8 @@ export async function createUser(userId: string, username: string, globalName: s
 export async function fetchWords(userId: string) {
     try {
         const words = await sql`
-            SELECT Words.*
-            FROM Words
-            JOIN UserWords ON Words.word_id = UserWords.word_id
+            SELECT word_id
+            FROM UserWords
             WHERE UserWords.user_id = ${userId}
         `
         return words.rows;
@@ -59,7 +58,6 @@ export async function fetchWords(userId: string) {
 
 export async function saveWord(userId: string, word: string) {
     try {
-        sql`INSERT INTO Words (word_id) VALUES (${word}) ON CONFLICT DO NOTHING`;
         sql`INSERT INTO UserWords (user_id, word_id) VALUES (${userId}, ${word}) ON CONFLICT DO NOTHING`;
     } catch (error) {
         console.error(error);
