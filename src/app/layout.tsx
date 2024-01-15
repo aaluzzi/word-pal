@@ -21,9 +21,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 						</div>
 					</div>
 					<div className="max-w-7xl mx-auto flex-grow px-2 flex w-full h-[calc(100%-64px)] flex-col md:flex-row md:overflow-hidden">
-						<div className="w-full flex-none md:w-48">
-							<div className="flex h-full flex-col px-3 py-4 md:px-2 ">
-								<div className="flex grow flex-row space-x-2 md:flex-col md:space-x-0 md:space-y-2">
+						<div className="z-1 fixed bottom-0 left-0 md:relative w-full flex-none md:w-48">
+							<div className="flex h-full flex-col md:py-4 md:px-2 bg-gray-100 md:bg-transparent">
+								<div className="flex grow flex-row md:flex-col md:space-x-0 md:space-y-2">
 									<NavLinks />
 								</div>
 							</div>
