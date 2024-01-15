@@ -14,7 +14,7 @@ export default async function Page() {
     return (
         <div className="w-full">
 			<div className="flex w-full items-center justify-between">
-				<h1 className={`text-2xl`}>My Collection</h1>
+				<h1 className={`text-3xl`}>My Collection</h1>
 			</div>
             <div className="mt-6 rounded-lg p-4 bg-gray-50">
                 {categories.map(category => 
