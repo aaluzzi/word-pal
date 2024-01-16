@@ -58,7 +58,7 @@ export async function fetchWords(userId: string) {
 
 export async function saveWord(userId: string, word: string) {
     try {
-        sql`INSERT INTO UserWords (user_id, word, category_name) VALUES (${userId}, ${word}, 'all') ON CONFLICT DO NOTHING`;
+        sql`INSERT INTO UserWords (user_id, word, category_name) VALUES (${userId}, ${word}, 'uncategorized') ON CONFLICT DO NOTHING`;
     } catch (error) {
         console.error(error);
     }
@@ -94,6 +94,19 @@ export async function saveCategory(userId: string, category_name: string) {
         await sql`
             INSERT INTO UserCategories (user_id, category_name)
             VALUES (${userId}, ${category_name})
+            ON CONFLICT DO NOTHING
+        `;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function updateWordCategory(userId: string, word: string, category_name: string) {
+    try {
+        await sql`
+            UPDATE UserWords
+            SET category_name = ${category_name}
+            WHERE user_id = ${userId} AND word = ${word}
         `;
     } catch (error) {
         console.error(error);

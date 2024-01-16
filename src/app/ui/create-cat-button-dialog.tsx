@@ -2,7 +2,7 @@
 
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import CreateCategoryDialog from './create-category-dialog';
+import CreateCategoryDialog from './dialogs/create-category-dialog';
 
 export default function CreateCategoryButtonAndDialog() {
 	let [isOpen, setIsOpen] = useState(false);
