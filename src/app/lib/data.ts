@@ -88,3 +88,14 @@ export async function fetchCategories(userId: string) {
         console.error(error);
     }
 }
+
+export async function saveCategory(userId: string, category_name: string) {
+    try {
+        await sql`
+            INSERT INTO UserCategories (user_id, category_name)
+            VALUES (${userId}, ${category_name})
+        `;
+    } catch (error) {
+        console.error(error);
+    }
+}
