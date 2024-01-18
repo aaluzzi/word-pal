@@ -4,12 +4,14 @@ import { QueryResultRow } from '@vercel/postgres';
 import CategoryDisplay from './category-display';
 import UpdateWordDialog from './dialogs/update-word-dialog';
 import { useState } from 'react';
-import DeleteWordDialog from './dialogs/delete-word-dialog';
+import { DeleteCategoryDialog, DeleteWordDialog } from './dialogs/delete-dialog';
 
 export default function WordCollection({ words, categories }: { words: QueryResultRow[]; categories: string[] }) {
 	const [updateWordDialogIsOpen, setUpdateWordDialogIsOpen] = useState(false);
 	const [deleteWordDialogIsOpen, setDeleteWordDialogIsOpen] = useState(false);
+	const [deleteCategoryDialogIsOpen, setDeleteCategoryDialogIsOpen] = useState(false);
 	const [wordToUpdate, setWordToUpdate] = useState(words[0]);
+	const [categoryToUpdate, setCategoryToUpdate] = useState('');
 
 	if (words.length === 0) {
 		return (
@@ -26,11 +28,19 @@ export default function WordCollection({ words, categories }: { words: QueryResu
 					key={category}
 					category={category}
 					words={words.filter((word) => word.category_name === category)}
+					setDeleteCategoryDialogIsOpen={setDeleteCategoryDialogIsOpen}
 					setUpdateWordDialogIsOpen={setUpdateWordDialogIsOpen}
 					setDeleteWordDialogIsOpen={setDeleteWordDialogIsOpen}
+					setCategoryToUpdate={setCategoryToUpdate}
 					setWordToUpdate={setWordToUpdate}
 				/>
 			))}
+
+			<DeleteCategoryDialog
+				isOpen={deleteCategoryDialogIsOpen}
+				setIsOpen={setDeleteCategoryDialogIsOpen}
+				category={categoryToUpdate}
+			/>
 
 			<UpdateWordDialog
 				categories={categories}

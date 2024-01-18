@@ -2,7 +2,7 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth";
-import { deleteWord, fetchCategories, fetchWords, saveCategory, saveWord, updateWordCategory, wordSaved } from "./data";
+import { deleteCategory, deleteWord, fetchCategories, fetchWords, saveCategory, saveWord, updateWordCategory, wordSaved } from "./data";
 import { revalidatePath } from "next/cache";
 
 export async function getWords() {
@@ -55,6 +55,14 @@ export async function submitCategory(formData: FormData) {
     const session = await getServerSession(authOptions);
     if (session && formData.get('category_name')) {
         await saveCategory(session.user.id, formData.get('category_name')!.toString());
+        revalidatePath('/collection');
+    }
+}
+
+export async function removeCategory(category: string) {
+    const session = await getServerSession(authOptions);
+    if (session) {
+        await deleteCategory(session.user.id, category);
         revalidatePath('/collection');
     }
 }

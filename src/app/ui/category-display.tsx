@@ -9,14 +9,18 @@ import clsx from 'clsx';
 export default function CategoryDisplay({
 	category,
 	words,
+	setDeleteCategoryDialogIsOpen,
 	setUpdateWordDialogIsOpen,
 	setDeleteWordDialogIsOpen,
+	setCategoryToUpdate,
 	setWordToUpdate,
 }: {
 	category: string;
 	words: any[];
+	setDeleteCategoryDialogIsOpen: Function;
 	setUpdateWordDialogIsOpen: Function;
 	setDeleteWordDialogIsOpen: Function;
+	setCategoryToUpdate: Function;
 	setWordToUpdate: Function;
 }) {
 	//TODO change any type
@@ -28,6 +32,11 @@ export default function CategoryDisplay({
 	const openDeleteWordDialog = (word: any) => {
 		setWordToUpdate(word);
 		setDeleteWordDialogIsOpen(true);
+	};
+
+	const openDeleteCategoryDialog = () => {
+		setCategoryToUpdate(category);
+		setDeleteCategoryDialogIsOpen(true);
 	}
 
 	return (
@@ -44,7 +53,13 @@ export default function CategoryDisplay({
 						)}
 					>
 						<span className="capitalize">{category}</span>
-						<ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-blue-500`} />
+						<div className="flex gap-2">
+							{category !== 'uncategorized' && <TrashIcon
+								className="h-6 text-gray-700 hover:text-blue-600"
+								onClick={() => openDeleteCategoryDialog()}
+							></TrashIcon>}
+							<ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-blue-500`} />
+						</div>
 					</Disclosure.Button>
 					<Disclosure.Panel className="bg-white">
 						{words.map((word) => (
@@ -62,7 +77,6 @@ export default function CategoryDisplay({
 										onClick={() => openUpdateWordDialog(word)}
 									></PencilIcon>
 								</div>
-								
 							</div>
 						))}
 					</Disclosure.Panel>
