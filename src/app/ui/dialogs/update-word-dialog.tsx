@@ -23,7 +23,7 @@ function CategoryInput({ current, categories }: { current: string; categories: s
 							<ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
 						</span>
 					</Listbox.Button>
-					<Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+					<Listbox.Options className="absolute mt-1 max-h-60 w-full rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
 						{categories.map((category, categoryIdx) => (
 							<Listbox.Option
 								key={categoryIdx}
