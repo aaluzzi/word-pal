@@ -23,7 +23,7 @@ export default function FormDialog({
 			onClose={() => setIsOpen(false)}
 		>
 			<Dialog.Panel className="w-full md:max-w-md flex flex-col rounded-2xl bg-gray-50 m-4 md:shadow-lg">
-				<div className="bg-gray-50 shadow-lg rounded-2xl overflow-auto">
+				<div className="bg-gray-50 shadow-lg rounded-2xl">
 					<Dialog.Title className="flex justify-between text-xl font-medium bg-blue-600 text-white capitalize p-4">
 						<span>{title}</span>
 						<XMarkIcon className="h-7" onClick={() => setIsOpen(false)} />
@@ -41,7 +41,7 @@ export default function FormDialog({
 								type="submit"
 								className="flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
 							>
-								Submit
+								Confirm
 							</button>
 						</div>
 					</form>

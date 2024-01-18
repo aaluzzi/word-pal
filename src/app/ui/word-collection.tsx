@@ -4,9 +4,11 @@ import { QueryResultRow } from '@vercel/postgres';
 import CategoryDisplay from './category-display';
 import UpdateWordDialog from './dialogs/update-word-dialog';
 import { useState } from 'react';
+import DeleteWordDialog from './dialogs/delete-word-dialog';
 
 export default function WordCollection({ words, categories }: { words: QueryResultRow[]; categories: string[] }) {
 	const [updateWordDialogIsOpen, setUpdateWordDialogIsOpen] = useState(false);
+	const [deleteWordDialogIsOpen, setDeleteWordDialogIsOpen] = useState(false);
 	const [wordToUpdate, setWordToUpdate] = useState(words[0]);
 
 	if (words.length === 0) {
@@ -25,6 +27,7 @@ export default function WordCollection({ words, categories }: { words: QueryResu
 					category={category}
 					words={words.filter((word) => word.category_name === category)}
 					setUpdateWordDialogIsOpen={setUpdateWordDialogIsOpen}
+					setDeleteWordDialogIsOpen={setDeleteWordDialogIsOpen}
 					setWordToUpdate={setWordToUpdate}
 				/>
 			))}
@@ -33,6 +36,12 @@ export default function WordCollection({ words, categories }: { words: QueryResu
 				categories={categories}
 				isOpen={updateWordDialogIsOpen}
 				setIsOpen={setUpdateWordDialogIsOpen}
+				word={wordToUpdate}
+			/>
+
+			<DeleteWordDialog
+				isOpen={deleteWordDialogIsOpen}
+				setIsOpen={setDeleteWordDialogIsOpen}
 				word={wordToUpdate}
 			/>
 		</div>

@@ -64,6 +64,14 @@ export async function saveWord(userId: string, word: string) {
     }
 }
 
+export async function deleteWord(userId: string, word: string) {
+    try {
+        sql`DELETE FROM UserWords WHERE user_id = ${userId} AND word = ${word}`;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export async function wordSaved(userId: string, word: string) {
     try {
         const count = await sql`

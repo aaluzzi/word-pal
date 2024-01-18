@@ -2,7 +2,7 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth";
-import { fetchCategories, fetchWords, saveCategory, saveWord, updateWordCategory, wordSaved } from "./data";
+import { deleteWord, fetchCategories, fetchWords, saveCategory, saveWord, updateWordCategory, wordSaved } from "./data";
 import { revalidatePath } from "next/cache";
 
 export async function getWords() {
@@ -18,6 +18,14 @@ export async function submitWord(word: string) {
     const session = await getServerSession(authOptions);
     if (session) {
         await saveWord(session?.user.id, word);
+        revalidatePath('/collection');
+    }
+}
+
+export async function removeWord(word: string) {
+    const session = await getServerSession(authOptions);
+    if (session) {
+        await deleteWord(session?.user.id, word);
         revalidatePath('/collection');
     }
 }

@@ -2,7 +2,7 @@
 
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/solid';
-import { PencilIcon } from '@heroicons/react/24/outline';
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import clsx from 'clsx';
 
@@ -10,18 +10,25 @@ export default function CategoryDisplay({
 	category,
 	words,
 	setUpdateWordDialogIsOpen,
+	setDeleteWordDialogIsOpen,
 	setWordToUpdate,
 }: {
 	category: string;
 	words: any[];
 	setUpdateWordDialogIsOpen: Function;
+	setDeleteWordDialogIsOpen: Function;
 	setWordToUpdate: Function;
 }) {
 	//TODO change any type
-	const openWordDialog = (word: any) => {
+	const openUpdateWordDialog = (word: any) => {
 		setWordToUpdate(word);
 		setUpdateWordDialogIsOpen(true);
 	};
+
+	const openDeleteWordDialog = (word: any) => {
+		setWordToUpdate(word);
+		setDeleteWordDialogIsOpen(true);
+	}
 
 	return (
 		<Disclosure defaultOpen={category === 'uncategorized'}>
@@ -45,10 +52,17 @@ export default function CategoryDisplay({
 								<Link href={`/dictionary/${word.word}`} className="flex-grow rounded-md hover:text-blue-600">
 									{word.word}
 								</Link>
-								<PencilIcon
-									className="h-6 text-gray-700 hover:text-blue-600"
-									onClick={() => openWordDialog(word)}
-								></PencilIcon>
+								<div className="flex gap-2">
+									<TrashIcon
+										className="h-6 text-gray-700 hover:text-blue-600"
+										onClick={() => openDeleteWordDialog(word)}
+									></TrashIcon>
+									<PencilIcon
+										className="h-6 text-gray-700 hover:text-blue-600"
+										onClick={() => openUpdateWordDialog(word)}
+									></PencilIcon>
+								</div>
+								
 							</div>
 						))}
 					</Disclosure.Panel>

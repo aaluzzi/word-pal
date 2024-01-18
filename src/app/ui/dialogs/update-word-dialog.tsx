@@ -73,7 +73,7 @@ export default function UpdateWordDialog({
 	return FormDialog({
 		isOpen: isOpen,
 		setIsOpen: setIsOpen,
-		title: word?.word,
+		title: `Edit ${word?.word}`,
 		formInputs: CategoryInput({ current: word?.category_name, categories: categories }),
 		onFormSubmit: onFormSubmit,
 	});
