@@ -31,11 +31,11 @@ export async function fetchWord(query: string): Promise<Word | null> {
 	return null;
 }
 
-export async function createUser(userId: string, username: string, globalName: string) {
+export async function createUser(userId: string, name: string) {
 	try {
 		await sql`
-            INSERT INTO users (user_id, username, global_name)
-            VALUES (${userId}, ${username}, ${globalName})
+            INSERT INTO users (user_id, name)
+            VALUES (${userId}, ${name})
             ON CONFLICT DO NOTHING
         `;
 	} catch (error) {
